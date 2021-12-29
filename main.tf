@@ -9,7 +9,7 @@ resource "aws_instance" "blue" {
   ami                    = data.aws_ami.latest-ubuntu.id
   instance_type          = "t2.micro"
 
-  subnet_id              = aws_subnet.prod-subnet-public[count.index].id
+  subnet_id              = aws_subnet.prod-subnet-private[count.index].id
   vpc_security_group_ids = [aws_security_group.webservers.id]
   user_data = templatefile("${path.module}/install_httpd.sh", {
     file_content = "version 1.0 - #${count.index}"
